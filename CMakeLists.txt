@@ -3,4 +3,4 @@ project(HashMap)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(HashMap main.cpp)
+add_executable(HashMap src/hashing.cpp src/Sequence/Sequence.cpp)
