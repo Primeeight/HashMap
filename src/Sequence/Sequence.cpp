@@ -94,12 +94,12 @@ template<class T>
 void Sequence<T>::remove(T &x, int pos) {
     /*
      * Check if the position in the list is out of bounds
-     * Increment through the list until pos
+     * Increment through the table until pos
      * Delete the node
      * Link the previous node to the next node
      * Store x as the deleted node
      */
-// Check if the position in the list is out of bounds
+// Check if the position in the table is out of bounds
     if (pos < 0 || pos >= size) {
         return;
     }
@@ -111,7 +111,7 @@ void Sequence<T>::remove(T &x, int pos) {
 
     } else {
         NodeRecord *currentNode = head, *prevNode = NULL;
-        //Increment through the list until pos
+        //Increment through the table until pos
         for (int i = 0; i < pos; i++) {
             prevNode = currentNode;
             currentNode = currentNode->next;
@@ -134,8 +134,8 @@ std::optional<T> Sequence<T>::entry(int pos) {
        * May also check if the list is not empty
        * If position is not out of bounds:{
        * Start currentValue at head
-       * Iterate through the length of the list
-       * Return the value by reference.}
+       * Iterate through the length of the table
+       * Return the latMin by reference.}
        * else return NULL
        * Will a case be required if head is the only node?
        */
@@ -145,8 +145,8 @@ std::optional<T> Sequence<T>::entry(int pos) {
     if (pos >= size || length() == 0) {
         return std::nullopt;
     } else {
-        //Create a var to hold the value.
-        //Iterate through the list.
+        //Create a var to hold the latMin.
+        //Iterate through the table.
         for (int i = 0; i < pos; ++i) {
             currentNode = currentNode->next;
         }
@@ -179,7 +179,7 @@ std::string Sequence<T>::outputSequence() {
         }
 
         //Seg fault?
-        ss << currentNode->value;
+        ss << currentNode->value << "\n";
     }
     //Use insertion operator (<<) to build the string.
     return ss.str();

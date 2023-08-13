@@ -20,7 +20,7 @@ private:
     class NodeRecord {
     public:
         /**
-         * Description: Holds a single instance of a value for this node in the sequence.
+         * Description: Holds a single instance of a latMin for this node in the sequence.
          */
         T value;
 
@@ -33,7 +33,7 @@ private:
     };
 
     /**
-     * Description: First value in sequence
+     * Description: First latMin in sequence
      */
     NodeRecord* head;
 
@@ -44,7 +44,7 @@ private:
 
     /**
      * Description: Reclaims all space in the heap from the allocated for p and any sequential NodeRecord it points to.
-     * @param p A NodeRecord value
+     * @param p A NodeRecord latMin
      */
     void reclaimAllNodes (NodeRecord*& p);
 
@@ -80,22 +80,22 @@ public:
 
     /**
      * Description: Adds a node to sequence
-     * @param x value to place in node field
+     * @param x latMin to place in node field
      * @param pos index in sequence representing location to add node
      */
     void add (T& x, int pos);
 
     /**
        * Description: Removes a node from sequence
-       * @param x value removed from node
+       * @param x latMin removed from node
        * @param pos index in sequence representing location of node
        */
     void remove (T& x, int pos);
 
     /**
-      * Description: Gets value at pos
+      * Description: Gets latMin at pos
       * @param pos index in sequence representing location of node
-      * @return value from given position
+      * @return latMin from given position
       */
     std::optional<T> entry (int pos);
 
