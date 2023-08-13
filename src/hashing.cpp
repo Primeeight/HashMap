@@ -138,11 +138,15 @@ public:
         int size = table[hash].length();
         table[hash].add(entry, size);
     }
+
     void remove(std::string code, HashEntry entry) {
 
         int hash = getHash(code);
         int size = table[hash].length();
-        table[hash].remove(entry, size);
+        for (int i = 0; i < size; i++) {
+            if (table[hash].entry(i) == entry)
+                table[hash].remove(entry, i);
+        }
     }
 
     int getHash(std::string code) {
@@ -167,6 +171,37 @@ public:
 
     /**
      * TODO
+     * Read the file name
+     * while the end of the file has not been reached, read each line into the table based on their code.
+     * @param filename
+     */
+    void inputHashMap(string filename) {
+        ifstream infile(filename);
+        HashEntry newEntry = new HashEntry;
+        if (!infile)
+            cout << "unable to open the file";
+        exit(1);
+        //Iterate through the file.
+        infile >> newEntry.code;
+        infile >> newEntry.name;
+        infile >> newEntry.city;
+        infile >> newEntry.country;
+        infile >> newEntry.latDegree;
+        infile >> newEntry.latMin;
+        infile >> newEntry.latSec;
+        infile >> newEntry.latDir;
+        infile >> newEntry.longMin;
+        infile >> newEntry.longSec;
+        infile >> newEntry.longDir;
+        infile >> newEntry.altitude;
+        put(newEntry.code, newEntry);
+
+        //close the file.
+        infile.close();
+    }
+
+    /**
+     * TODO
      * iterate over the table.
      * For each sequence at an index, input all entries into a string stream.
      * output the string stream into a .txt file.
@@ -176,7 +211,7 @@ public:
 //        if(){
 //         //file exists
 //        }
-ofstream OutputFile("output.txt");
+        ofstream OutputFile("output.txt");
 
         for (int i = 0; i < table.size(); i++) {
             OutputFile << table[i].outputSequence();
@@ -191,9 +226,14 @@ ofstream OutputFile("output.txt");
 
 int main() {
     HashMap hm;
-    hm.put(3, 23);
-    hm.put(5, 2377);
-    hm.put(9, 263);
+
+    hm.outputHashMap();
+    hm.getSize();
+    hm.get("YWG");
+    hm.get("CMB");
+    hm.get("HND");
+    hm.getSize();
+    hm.outputHashMap();
     cout << "Value of latDegree = 3, is " << hm.get(3) << endl;
 
     /** Output the map */
