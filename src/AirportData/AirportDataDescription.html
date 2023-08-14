@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="Author" content="Dr. Holly">
+<title>Airport Data</title>
+</head>
+
+<body>
+
+<table border="0" width="100%">
+  <tr>
+    <td width="71%">
+      <h3> Airport Data</h3>
+    </td>
+    <td width="29%">
+      <p align="right"><i>Last Updated: 10/1/2016</i></td>
+  </tr>
+</table>
+<hr>
+<h4>Airport Data Overview:</h4>
+<ul>
+  <li>The Airport Data files contain data for airports related to the name, code, location, and altitude</li>
+</ul>
+<hr />
+<h4>Airport Record Format in Data Set:</h4>
+<h5>There are 13 fields in each record, in the order listed below, and the field's data type is included:</h5>
+<ol>
+  <li><em> code</em> - (Text) The airport's International Air Transport Association's 3-letter code</li>
+  <li><em> name</em> - (Text) Airport's name</li>
+  <li><em>  city</em> -  (Text) City where airport is located</li>
+  <li><em>country</em> - (Text) Country where airport is located</li>
+  <li><em>latitude degree  </em>- (Integer) Airport's degrees latitude</li>
+  <li><em>latitude minutes</em> - (Integer) Airport's minutes latitude</li>
+  <li><em>latitude seconds</em> - (Integer) Airport's seconds latitude</li>
+  <li><em>latitude direction</em> - (Text) N or S</li>
+  <li><em>longitude degree </em>- (Integer) Airport's degrees longitude</li>
+  <li><em>longitude minutes</em> - (Integer) Airport's minutes longitude</li>
+  <li><em>longitude seconds</em> - (Integer) Airport's seconds longitude</li>
+  <li><em>longitude direction</em> - (Text) E or W</li>
+  <li><em>altitude</em> - (Integer) Airport's altitude in feet</li>
+</ol>
+<hr />
+<h4>Reading Airport Data Files:</h4>
+<ul>
+  <li>The data files have the <em>.dat</em> extension, which means they were created using the <em>File</em> data type</li>
+  <li>The <em>File</em> data type is a class that includes member functions for opening and closing a file, and also for reading the following types: Boolean, Character, Float, Integer, LongInteger, and Text</li>
+  <li><em>.dat</em> data files must be opened and read using the <em>File's</em> member functions</li>
+  <li>The filenames are of the form AirportDataX.dat - the X indicates how many airport data records are contained in the file, various sizes are provided for testing purposes</li>
+  <li>The first item in the file is an integer which indicates how many records are contained in the file - this integer must be read using member function <em>read</em> from the <em>File</em> data type</li>
+  <li>Each field in a record must be read one at a time from the file by using one call to a <em>read</em> member function - so reading 1 record from an AirportDataX.dat file requires calling <em>read</em> 13 different times</li>
+  <li>For example code that illustrates how to read records using the <em>File</em> data type see: <a href="http://pages.iu.edu/~jholly/C343/Notes/CppSpecific/BuildingCppRecords.html" target="_blank">Building C++ Open Records</a> </li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>
