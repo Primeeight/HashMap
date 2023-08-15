@@ -127,14 +127,18 @@ public:
      * while the end of the file has not been reached, read each line into the table based on their code.
      * @param filename
      */
-    void inputHashMap(std::string filename) {
-        ifstream infile(filename);
-        int dataSize;
+    void inputHashMap(string filename) {
+
+        ifstream infile;
+        filename = "air16.dat";
+        infile.open(filename);
+        int dataSize =0;
+        bool successful;
         HashEntry newEntry = *new HashEntry;
-        if (!infile) {
-            cout << "unable to open the file";
-            exit(1);
-        }
+//        if (!infile) {
+//            cout << "unable to open the file";
+//            exit(1);
+//        }
         if (infile.is_open()) {
             infile >> dataSize;
         }
@@ -166,42 +170,16 @@ public:
      * output the string stream into a .txt file.
      * if there is already an output file, override that file.
      */
-    void outputHashMap() {
-        std::stringstream ss;
-        ofstream OutputFile("output.txt");
-
-        for (int i = 0; i < table.size(); i++) {
-            OutputFile << table[i].outputSequence();
-        }
-        OutputFile.close();
-    }
+//    void outputHashMap() {
+//        std::stringstream ss;
+//        ofstream OutputFile("output.txt");
+//
+//        for (int i = 0; i < table.size(); i++) {
+//            OutputFile << table[i].outputSequence();
+//        }
+//        OutputFile.close();
+//    }
 
     ~HashMap() = default;
 };
-
-int main() {
-    /** Output the map */
-
-    /** How many records are in this map data structure?*/
-
-    /** Is there a record for latDegree "YWG" ?*/
-
-    /** Is there a record for latDegree "CMB" ?*/
-
-    /**Remove record with latDegree "HND" ?*/
-
-    /** How many records are in this map data structure?*/
-
-    /** Output the map */
-
-    HashMap hm;
-    hm.inputHashMap("air16.dat");
-    hm.outputHashMap();
-    hm.getSize();
-    hm.get("YWG");
-    hm.get("CMB");
-    hm.remove("HND");
-    hm.getSize();
-    hm.outputHashMap();
-}
 
