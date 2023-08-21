@@ -17,7 +17,22 @@ class HashEntry {
 public:
     HashEntry() = default;
 
-    HashEntry(optional<HashEntry> Optional) {}
+    HashEntry(optional<HashEntry> Input) {
+        this->code = Input->code;
+        this->name = Input->name;
+        this->city = Input->city;
+        this->country = Input->country;
+        this->latDegree = Input->latDegree;
+        this->latMin = Input->latMin;
+        this->latSec = Input->latSec;
+        this->latDir = Input->latDir;
+        this->longMin = Input->longMin;
+        this->longSec = Input->longSec;
+        this->longDir = Input->longDir;
+        this->country = Input->country;
+        this->latDegree = Input->latDegree;
+        this->altitude = Input->altitude;
+    }
 
     std::string code;
     std::string name;
@@ -31,7 +46,15 @@ public:
     int longSec;
     std::string longDir;
     int altitude;
+
+
 };
+
+std::ostream &HashEntry::operator<<(ostream &os, HashEntry &e) {
+    os << "(" << e.code << "," << e.name << "," << e.city << "," << e.country << e.latDegree << e.latMin << e.latSec
+       << e.latDir << "," << e.longMin << "," << e.longSec << "," << e.longDir << e.altitude << ")";
+    return os;
+}
 
 
 class HashMap {
@@ -44,6 +67,10 @@ public:
      */
     HashMap() = default;
 
+    HashMap(int datasize) {
+        table.resize(datasize);
+    };
+
     /**
      * TODO
      *Traverse the vector for the hash.
@@ -53,13 +80,13 @@ public:
      * @param code
      * @return
      */
-    optional<HashEntry> get(std::string code) {
+    HashEntry get(std::string code) {
         int hash = getHash(code);
         for (int i = 0; i < table[hash].length(); i++) {
             if (table[hash].entry(i)->code == code)
                 return table[hash].entry(i);
         }
-        return optional<HashEntry>();
+        return {};
     }
 
     /**
@@ -97,29 +124,35 @@ public:
             }
         }
     }
+
     /**
      * get the hash using polynomial hashing.
      * @param code
      * @return int
      */
     int getHash(std::string code) {
-        int v1;
-        for (int i = 0; i < code.length(); i++)
+        int v1 = 0;
+        for (int i = 1; i < code.length() + 1; i++)
             v1 = v1 + code[i];
-        return (v1 * 17) % getSize();
+        return (v1 * 17) % table.size();
     }
 
-    /**
-     * iterate through the vector, adding the length of all sequences.
-     * @return the size
-     */
+//    /**
+//     * iterate through the vector, adding the length of all sequences.
+//     * Should the default size of the table be changed?
+//     * @return the size
+//     */
+//    int getSize() {
+//        int size = 0;
+//        for (int i = 0; i < table.size(); i++) {
+//            size = size + table[i].length();
+//        }
+//        return size;
+//    }
     int getSize() {
-        int size = 0;
-        for (int i = 0; i < table.size(); i++) {
-            size = size + table[i].length();
-        }
-        return size;
+        return table.size();
     }
+
 
     /**
      * TODO
@@ -132,15 +165,17 @@ public:
         ifstream infile;
         filename = "air16.dat";
         infile.open(filename);
-        int dataSize =0;
+        int dataSize = 0;
         bool successful;
         HashEntry newEntry = *new HashEntry;
-//        if (!infile) {
-//            cout << "unable to open the file";
-//            exit(1);
-//        }
+        if (!infile) {
+            cout << "unable to open the file";
+            exit(1);
+        }
         if (infile.is_open()) {
             infile >> dataSize;
+            table.resize(dataSize);
+
         }
         //Iterate through the file.
         for (int i = 0; i < dataSize; i++) {

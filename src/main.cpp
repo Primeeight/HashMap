@@ -35,8 +35,8 @@ int main()
     hm.inputHashMap("Sequence/air16.dat");
 //    hm.outputHashMap();
     hm.getSize();
-    hm.get("YWG");
-    hm.get("CMB");
+    cout << hm.get("YWG");
+    cout << hm.get("CMB");
     hm.remove("HND");
     hm.getSize();
 //    hm.outputHashMap();
