@@ -9,30 +9,26 @@
 // Instead, use the scope resolution operator :: to scope from std.
 // ex. std::cout
 
-template <class T>
-Sequence<T>::Sequence ()
-{
+template<class T>
+Sequence<T>::Sequence() {
     head = NULL;
     size = 0;
 }
 
-template <class T>
-Sequence<T>::~Sequence ()
-{
+template<class T>
+Sequence<T>::~Sequence() {
     reclaimAllNodes(head);
 }
 
-template <class T>
-void Sequence<T>::clear ()
-{
+template<class T>
+void Sequence<T>::clear() {
     reclaimAllNodes(head);
     head = NULL;
     size = 0;
 }
 
-template <class T>
-void Sequence<T>::reclaimAllNodes (NodeRecord*& initialP)
-{
+template<class T>
+void Sequence<T>::reclaimAllNodes(NodeRecord *&initialP) {
     if (initialP != NULL) {
         //Seg fault here.
         reclaimAllNodes(initialP->next);
@@ -40,23 +36,22 @@ void Sequence<T>::reclaimAllNodes (NodeRecord*& initialP)
     }
 }
 
-template <class T>
-void Sequence<T>::transferFrom(Sequence& source)
-{
+template<class T>
+void Sequence<T>::transferFrom(Sequence &source) {
     std::optional<T> temp;
     clear(); //clears self
     for (int i = 0; i < source.length(); i++)//traverses source
     {
         temp = source.entry(i);
-        if(temp != std::nullopt) {
+        if (temp != std::nullopt) {
             add(temp.value(), length());//adds source elements to self
         }
     }
     source.clear();//clears source
 }
 
-template <class T>
-Sequence<T>& Sequence<T>::operator=(Sequence const& rhs) = default;
+template<class T>
+Sequence<T> &Sequence<T>::operator=(Sequence const &rhs) = default;
 
 template<class T>
 void Sequence<T>::add(T &x, int pos) {
@@ -128,7 +123,7 @@ void Sequence<T>::remove(T &x, int pos) {
 }
 
 template<class T>
-std::optional<T> Sequence<T>::entry(int pos) {
+T Sequence<T>::entry(int pos) {
     /*
        * Check if the position is out of bounds.
        * May also check if the list is not empty
@@ -172,7 +167,7 @@ std::string Sequence<T>::outputSequence() {
 
     std::stringstream ss;
     NodeRecord *currentNode = head;
-    if( size > 0) {
+    if (size > 0) {
         for (int i = 0; i < size - 1; i++) {
             ss << currentNode->value << ", ";
             currentNode = currentNode->next;

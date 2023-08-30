@@ -97,7 +97,7 @@ public:
       * @param pos index in sequence representing location of node
       * @return latMin from given position
       */
-    std::optional<T> entry (int pos);
+    T entry (int pos);
 
     /**
       * Description: size of sequence

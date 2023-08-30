@@ -47,14 +47,14 @@ public:
     std::string longDir;
     int altitude;
 
+    friend ostream& operator<<(ostream &os, HashEntry &e) {
+        os << "(" << e.code << "," << e.name << "," << e.city << "," << e.country << e.latDegree << e.latMin << e.latSec
+           << e.latDir << "," << e.longMin << "," << e.longSec << "," << e.longDir << e.altitude << ")";
+        return os;
+}
+
 
 };
-
-std::ostream &HashEntry::operator<<(ostream &os, HashEntry &e) {
-    os << "(" << e.code << "," << e.name << "," << e.city << "," << e.country << e.latDegree << e.latMin << e.latSec
-       << e.latDir << "," << e.longMin << "," << e.longSec << "," << e.longDir << e.altitude << ")";
-    return os;
-}
 
 
 class HashMap {
@@ -77,13 +77,15 @@ public:
      * Traverse the sequence for the specified code.
      * If a hash entry with the specified code is found, return the hash entry.
      * Otherwise return an empty hash entry.
+     *
+     * May return an osstream of all open record properties.
      * @param code
      * @return
      */
     HashEntry get(std::string code) {
         int hash = getHash(code);
         for (int i = 0; i < table[hash].length(); i++) {
-            if (table[hash].entry(i)->code == code)
+            if (table[hash].entry(i).code == code)
                 return table[hash].entry(i);
         }
         return {};
@@ -118,7 +120,7 @@ public:
         int hash = getHash(code);
         int size = table[hash].length();
         for (int i = 0; i < size; i++) {
-            if (table[hash].entry(i)->code == code) {
+            if (table[hash].entry(i).code == code) {
                 currentHashEntry = table[hash].entry(i);
                 table[hash].remove(currentHashEntry, i);
             }
@@ -205,15 +207,15 @@ public:
      * output the string stream into a .txt file.
      * if there is already an output file, override that file.
      */
-//    void outputHashMap() {
-//        std::stringstream ss;
-//        ofstream OutputFile("output.txt");
-//
-//        for (int i = 0; i < table.size(); i++) {
-//            OutputFile << table[i].outputSequence();
-//        }
-//        OutputFile.close();
-//    }
+    void outputHashMap() {
+        std::stringstream ss;
+        ofstream OutputFile("output.txt");
+
+        for (int i = 0; i < table.size(); i++) {
+            OutputFile << table[i].outputSequence();
+        }
+        OutputFile.close();
+    }
 
     ~HashMap() = default;
 };
