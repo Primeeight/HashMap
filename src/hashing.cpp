@@ -78,6 +78,7 @@ public:
      * Traverse the sequence for the specified code.
      * If a hash entry with the specified code is found, return the hash entry.
      * Otherwise return an empty hash entry.
+     * As of now returns an empty entry.
      *
      * May return an osstream of all open record properties.
      * @param code
