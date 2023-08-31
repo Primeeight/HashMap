@@ -16,22 +16,23 @@ class HashEntry {
 
 public:
     HashEntry() = default;
+    ~HashEntry(){}
 
-    HashEntry(optional<HashEntry> Input) {
-        this->code = Input->code;
-        this->name = Input->name;
-        this->city = Input->city;
-        this->country = Input->country;
-        this->latDegree = Input->latDegree;
-        this->latMin = Input->latMin;
-        this->latSec = Input->latSec;
-        this->latDir = Input->latDir;
-        this->longMin = Input->longMin;
-        this->longSec = Input->longSec;
-        this->longDir = Input->longDir;
-        this->country = Input->country;
-        this->latDegree = Input->latDegree;
-        this->altitude = Input->altitude;
+    HashEntry(HashEntry const &Input) {
+        this->code = Input.code;
+        this->name = Input.name;
+        this->city = Input.city;
+        this->country = Input.country;
+        this->latDegree = Input.latDegree;
+        this->latMin = Input.latMin;
+        this->latSec = Input.latSec;
+        this->latDir = Input.latDir;
+        this->longMin = Input.longMin;
+        this->longSec = Input.longSec;
+        this->longDir = Input.longDir;
+        this->country = Input.country;
+        this->latDegree = Input.latDegree;
+        this->altitude = Input.altitude;
     }
 
     std::string code;
@@ -47,11 +48,11 @@ public:
     std::string longDir;
     int altitude;
 
-    friend ostream& operator<<(ostream &os, HashEntry &e) {
+    friend ostream &operator<<(ostream &os, const HashEntry& e) {
         os << "(" << e.code << "," << e.name << "," << e.city << "," << e.country << e.latDegree << e.latMin << e.latSec
            << e.latDir << "," << e.longMin << "," << e.longSec << "," << e.longDir << e.altitude << ")";
         return os;
-}
+    }
 
 
 };
@@ -84,9 +85,11 @@ public:
      */
     HashEntry get(std::string code) {
         int hash = getHash(code);
+        std::optional<HashEntry> currentHashEntry;
         for (int i = 0; i < table[hash].length(); i++) {
-            if (table[hash].entry(i).code == code)
-                return table[hash].entry(i);
+            currentHashEntry = table[hash].entry(i);
+            if (currentHashEntry.value().code == code)
+                return currentHashEntry.value();
         }
         return {};
     }
@@ -116,13 +119,13 @@ public:
      * @param code
      */
     void remove(std::string code) {
-        HashEntry currentHashEntry = *new HashEntry;
+        std::optional<HashEntry> currentHashEntry;
         int hash = getHash(code);
         int size = table[hash].length();
         for (int i = 0; i < size; i++) {
-            if (table[hash].entry(i).code == code) {
-                currentHashEntry = table[hash].entry(i);
-                table[hash].remove(currentHashEntry, i);
+            currentHashEntry = table[hash].entry(i);
+            if (currentHashEntry.value().code == code) {
+                table[hash].remove(currentHashEntry.value(), i);
             }
         }
     }
